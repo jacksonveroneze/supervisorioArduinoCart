@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBoxMove = new System.Windows.Forms.GroupBox();
+            this.buttonBreakAll = new System.Windows.Forms.Button();
             this.checkBoxBloquearMovimentacao = new System.Windows.Forms.CheckBox();
             this.buttonMoveEsquerda = new System.Windows.Forms.Button();
             this.buttonMoveDireita = new System.Windows.Forms.Button();
@@ -37,9 +38,17 @@
             this.buttonMoveFrente = new System.Windows.Forms.Button();
             this.serialPort = new System.IO.Ports.SerialPort(this.components);
             this.textBoxDisplayInfo = new System.Windows.Forms.TextBox();
-            this.groupBoxDistancias = new System.Windows.Forms.GroupBox();
+            this.groupBoxDistanciaDianteira = new System.Windows.Forms.GroupBox();
+            this.labelDistanciaDianteira = new System.Windows.Forms.Label();
             this.groupBoxVelocidade = new System.Windows.Forms.GroupBox();
-            this.groupBoxConfigSerial = new System.Windows.Forms.GroupBox();
+            this.labelVelocidadeMinimaValue = new System.Windows.Forms.Label();
+            this.labelVelocidadeMaximaValue = new System.Windows.Forms.Label();
+            this.labelVelocidadeMediaValue = new System.Windows.Forms.Label();
+            this.labelVelocidadeAtual = new System.Windows.Forms.Label();
+            this.labelVelocidadeMinimaText = new System.Windows.Forms.Label();
+            this.labelVelocidadeMaximaText = new System.Windows.Forms.Label();
+            this.labelVelocidadeMediaText = new System.Windows.Forms.Label();
+            this.groupBoxConfig = new System.Windows.Forms.GroupBox();
             this.buttonClearDisplayInfo = new System.Windows.Forms.Button();
             this.buttonDesconectar = new System.Windows.Forms.Button();
             this.buttonUpdatePorts = new System.Windows.Forms.Button();
@@ -48,12 +57,18 @@
             this.labelSelectPortaCom = new System.Windows.Forms.Label();
             this.comboBoxSelectBaudRate = new System.Windows.Forms.ComboBox();
             this.comboBoxSelectPortaCom = new System.Windows.Forms.ComboBox();
+            this.groupBoxDistanciaTraseira = new System.Windows.Forms.GroupBox();
+            this.labelDistanciaTraseira = new System.Windows.Forms.Label();
             this.groupBoxMove.SuspendLayout();
-            this.groupBoxConfigSerial.SuspendLayout();
+            this.groupBoxDistanciaDianteira.SuspendLayout();
+            this.groupBoxVelocidade.SuspendLayout();
+            this.groupBoxConfig.SuspendLayout();
+            this.groupBoxDistanciaTraseira.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxMove
             // 
+            this.groupBoxMove.Controls.Add(this.buttonBreakAll);
             this.groupBoxMove.Controls.Add(this.checkBoxBloquearMovimentacao);
             this.groupBoxMove.Controls.Add(this.buttonMoveEsquerda);
             this.groupBoxMove.Controls.Add(this.buttonMoveDireita);
@@ -66,6 +81,17 @@
             this.groupBoxMove.TabIndex = 0;
             this.groupBoxMove.TabStop = false;
             this.groupBoxMove.Text = "Move";
+            // 
+            // buttonBreakAll
+            // 
+            this.buttonBreakAll.Font = new System.Drawing.Font("Arial Narrow", 8.25F);
+            this.buttonBreakAll.Location = new System.Drawing.Point(165, 117);
+            this.buttonBreakAll.Name = "buttonBreakAll";
+            this.buttonBreakAll.Size = new System.Drawing.Size(40, 40);
+            this.buttonBreakAll.TabIndex = 5;
+            this.buttonBreakAll.Text = "■";
+            this.buttonBreakAll.UseVisualStyleBackColor = true;
+            this.buttonBreakAll.Click += new System.EventHandler(this.buttonBreakAll_Click);
             // 
             // checkBoxBloquearMovimentacao
             // 
@@ -98,6 +124,7 @@
             this.buttonMoveDireita.TabIndex = 2;
             this.buttonMoveDireita.Text = "►";
             this.buttonMoveDireita.UseVisualStyleBackColor = true;
+            this.buttonMoveDireita.Click += new System.EventHandler(this.buttonMoveDireita_Click);
             // 
             // buttonMoveTras
             // 
@@ -131,20 +158,38 @@
             this.textBoxDisplayInfo.Multiline = true;
             this.textBoxDisplayInfo.Name = "textBoxDisplayInfo";
             this.textBoxDisplayInfo.ReadOnly = true;
-            this.textBoxDisplayInfo.Size = new System.Drawing.Size(874, 180);
+            this.textBoxDisplayInfo.Size = new System.Drawing.Size(874, 130);
             this.textBoxDisplayInfo.TabIndex = 1;
             // 
-            // groupBoxDistancias
+            // groupBoxDistanciaDianteira
             // 
-            this.groupBoxDistancias.Location = new System.Drawing.Point(403, 128);
-            this.groupBoxDistancias.Name = "groupBoxDistancias";
-            this.groupBoxDistancias.Size = new System.Drawing.Size(239, 301);
-            this.groupBoxDistancias.TabIndex = 2;
-            this.groupBoxDistancias.TabStop = false;
-            this.groupBoxDistancias.Text = "Distâncias";
+            this.groupBoxDistanciaDianteira.Controls.Add(this.labelDistanciaDianteira);
+            this.groupBoxDistanciaDianteira.Location = new System.Drawing.Point(403, 128);
+            this.groupBoxDistanciaDianteira.Name = "groupBoxDistanciaDianteira";
+            this.groupBoxDistanciaDianteira.Size = new System.Drawing.Size(239, 145);
+            this.groupBoxDistanciaDianteira.TabIndex = 2;
+            this.groupBoxDistanciaDianteira.TabStop = false;
+            this.groupBoxDistanciaDianteira.Text = "Distância dianteira";
+            // 
+            // labelDistanciaDianteira
+            // 
+            this.labelDistanciaDianteira.AutoSize = true;
+            this.labelDistanciaDianteira.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDistanciaDianteira.Location = new System.Drawing.Point(48, 65);
+            this.labelDistanciaDianteira.Name = "labelDistanciaDianteira";
+            this.labelDistanciaDianteira.Size = new System.Drawing.Size(32, 36);
+            this.labelDistanciaDianteira.TabIndex = 0;
+            this.labelDistanciaDianteira.Text = "_";
             // 
             // groupBoxVelocidade
             // 
+            this.groupBoxVelocidade.Controls.Add(this.labelVelocidadeMinimaValue);
+            this.groupBoxVelocidade.Controls.Add(this.labelVelocidadeMaximaValue);
+            this.groupBoxVelocidade.Controls.Add(this.labelVelocidadeMediaValue);
+            this.groupBoxVelocidade.Controls.Add(this.labelVelocidadeAtual);
+            this.groupBoxVelocidade.Controls.Add(this.labelVelocidadeMinimaText);
+            this.groupBoxVelocidade.Controls.Add(this.labelVelocidadeMaximaText);
+            this.groupBoxVelocidade.Controls.Add(this.labelVelocidadeMediaText);
             this.groupBoxVelocidade.Location = new System.Drawing.Point(659, 128);
             this.groupBoxVelocidade.Name = "groupBoxVelocidade";
             this.groupBoxVelocidade.Size = new System.Drawing.Size(227, 301);
@@ -152,22 +197,92 @@
             this.groupBoxVelocidade.TabStop = false;
             this.groupBoxVelocidade.Text = "Velocidade";
             // 
-            // groupBoxConfigSerial
+            // labelVelocidadeMinimaValue
             // 
-            this.groupBoxConfigSerial.Controls.Add(this.buttonClearDisplayInfo);
-            this.groupBoxConfigSerial.Controls.Add(this.buttonDesconectar);
-            this.groupBoxConfigSerial.Controls.Add(this.buttonUpdatePorts);
-            this.groupBoxConfigSerial.Controls.Add(this.buttonConectar);
-            this.groupBoxConfigSerial.Controls.Add(this.labelSelectBaudRate);
-            this.groupBoxConfigSerial.Controls.Add(this.labelSelectPortaCom);
-            this.groupBoxConfigSerial.Controls.Add(this.comboBoxSelectBaudRate);
-            this.groupBoxConfigSerial.Controls.Add(this.comboBoxSelectPortaCom);
-            this.groupBoxConfigSerial.Location = new System.Drawing.Point(12, 12);
-            this.groupBoxConfigSerial.Name = "groupBoxConfigSerial";
-            this.groupBoxConfigSerial.Size = new System.Drawing.Size(874, 98);
-            this.groupBoxConfigSerial.TabIndex = 4;
-            this.groupBoxConfigSerial.TabStop = false;
-            this.groupBoxConfigSerial.Text = "Configuração de Conexão";
+            this.labelVelocidadeMinimaValue.AutoSize = true;
+            this.labelVelocidadeMinimaValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.labelVelocidadeMinimaValue.Location = new System.Drawing.Point(60, 268);
+            this.labelVelocidadeMinimaValue.Name = "labelVelocidadeMinimaValue";
+            this.labelVelocidadeMinimaValue.Size = new System.Drawing.Size(13, 13);
+            this.labelVelocidadeMinimaValue.TabIndex = 6;
+            this.labelVelocidadeMinimaValue.Text = "_";
+            // 
+            // labelVelocidadeMaximaValue
+            // 
+            this.labelVelocidadeMaximaValue.AutoSize = true;
+            this.labelVelocidadeMaximaValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.labelVelocidadeMaximaValue.Location = new System.Drawing.Point(60, 236);
+            this.labelVelocidadeMaximaValue.Name = "labelVelocidadeMaximaValue";
+            this.labelVelocidadeMaximaValue.Size = new System.Drawing.Size(13, 13);
+            this.labelVelocidadeMaximaValue.TabIndex = 5;
+            this.labelVelocidadeMaximaValue.Text = "_";
+            // 
+            // labelVelocidadeMediaValue
+            // 
+            this.labelVelocidadeMediaValue.AutoSize = true;
+            this.labelVelocidadeMediaValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.labelVelocidadeMediaValue.Location = new System.Drawing.Point(60, 201);
+            this.labelVelocidadeMediaValue.Name = "labelVelocidadeMediaValue";
+            this.labelVelocidadeMediaValue.Size = new System.Drawing.Size(13, 13);
+            this.labelVelocidadeMediaValue.TabIndex = 4;
+            this.labelVelocidadeMediaValue.Text = "_";
+            // 
+            // labelVelocidadeAtual
+            // 
+            this.labelVelocidadeAtual.AutoSize = true;
+            this.labelVelocidadeAtual.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelVelocidadeAtual.Location = new System.Drawing.Point(35, 52);
+            this.labelVelocidadeAtual.Name = "labelVelocidadeAtual";
+            this.labelVelocidadeAtual.Size = new System.Drawing.Size(32, 36);
+            this.labelVelocidadeAtual.TabIndex = 1;
+            this.labelVelocidadeAtual.Text = "_";
+            // 
+            // labelVelocidadeMinimaText
+            // 
+            this.labelVelocidadeMinimaText.AutoSize = true;
+            this.labelVelocidadeMinimaText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.labelVelocidadeMinimaText.Location = new System.Drawing.Point(15, 268);
+            this.labelVelocidadeMinimaText.Name = "labelVelocidadeMinimaText";
+            this.labelVelocidadeMinimaText.Size = new System.Drawing.Size(45, 13);
+            this.labelVelocidadeMinimaText.TabIndex = 3;
+            this.labelVelocidadeMinimaText.Text = "Mínima:";
+            // 
+            // labelVelocidadeMaximaText
+            // 
+            this.labelVelocidadeMaximaText.AutoSize = true;
+            this.labelVelocidadeMaximaText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.labelVelocidadeMaximaText.Location = new System.Drawing.Point(15, 236);
+            this.labelVelocidadeMaximaText.Name = "labelVelocidadeMaximaText";
+            this.labelVelocidadeMaximaText.Size = new System.Drawing.Size(46, 13);
+            this.labelVelocidadeMaximaText.TabIndex = 2;
+            this.labelVelocidadeMaximaText.Text = "Máxima:";
+            // 
+            // labelVelocidadeMediaText
+            // 
+            this.labelVelocidadeMediaText.AutoSize = true;
+            this.labelVelocidadeMediaText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            this.labelVelocidadeMediaText.Location = new System.Drawing.Point(15, 201);
+            this.labelVelocidadeMediaText.Name = "labelVelocidadeMediaText";
+            this.labelVelocidadeMediaText.Size = new System.Drawing.Size(39, 13);
+            this.labelVelocidadeMediaText.TabIndex = 1;
+            this.labelVelocidadeMediaText.Text = "Média:";
+            // 
+            // groupBoxConfig
+            // 
+            this.groupBoxConfig.Controls.Add(this.buttonClearDisplayInfo);
+            this.groupBoxConfig.Controls.Add(this.buttonDesconectar);
+            this.groupBoxConfig.Controls.Add(this.buttonUpdatePorts);
+            this.groupBoxConfig.Controls.Add(this.buttonConectar);
+            this.groupBoxConfig.Controls.Add(this.labelSelectBaudRate);
+            this.groupBoxConfig.Controls.Add(this.labelSelectPortaCom);
+            this.groupBoxConfig.Controls.Add(this.comboBoxSelectBaudRate);
+            this.groupBoxConfig.Controls.Add(this.comboBoxSelectPortaCom);
+            this.groupBoxConfig.Location = new System.Drawing.Point(12, 12);
+            this.groupBoxConfig.Name = "groupBoxConfig";
+            this.groupBoxConfig.Size = new System.Drawing.Size(874, 98);
+            this.groupBoxConfig.TabIndex = 4;
+            this.groupBoxConfig.TabStop = false;
+            this.groupBoxConfig.Text = "Configuração de Conexão";
             // 
             // buttonClearDisplayInfo
             // 
@@ -247,24 +362,54 @@
             this.comboBoxSelectPortaCom.TabIndex = 0;
             this.comboBoxSelectPortaCom.TextChanged += new System.EventHandler(this.comboBoxSelectPortaCom_TextChanged);
             // 
+            // groupBoxDistanciaTraseira
+            // 
+            this.groupBoxDistanciaTraseira.Controls.Add(this.labelDistanciaTraseira);
+            this.groupBoxDistanciaTraseira.Location = new System.Drawing.Point(403, 284);
+            this.groupBoxDistanciaTraseira.Name = "groupBoxDistanciaTraseira";
+            this.groupBoxDistanciaTraseira.Size = new System.Drawing.Size(239, 145);
+            this.groupBoxDistanciaTraseira.TabIndex = 3;
+            this.groupBoxDistanciaTraseira.TabStop = false;
+            this.groupBoxDistanciaTraseira.Text = "Distância traseira";
+            // 
+            // labelDistanciaTraseira
+            // 
+            this.labelDistanciaTraseira.AutoSize = true;
+            this.labelDistanciaTraseira.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelDistanciaTraseira.Location = new System.Drawing.Point(48, 64);
+            this.labelDistanciaTraseira.Name = "labelDistanciaTraseira";
+            this.labelDistanciaTraseira.Size = new System.Drawing.Size(32, 36);
+            this.labelDistanciaTraseira.TabIndex = 0;
+            this.labelDistanciaTraseira.Text = "_";
+            // 
             // FormDefault
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(904, 637);
-            this.Controls.Add(this.groupBoxConfigSerial);
+            this.ClientSize = new System.Drawing.Size(904, 585);
+            this.Controls.Add(this.groupBoxDistanciaTraseira);
+            this.Controls.Add(this.groupBoxConfig);
             this.Controls.Add(this.groupBoxVelocidade);
-            this.Controls.Add(this.groupBoxDistancias);
+            this.Controls.Add(this.groupBoxDistanciaDianteira);
             this.Controls.Add(this.textBoxDisplayInfo);
             this.Controls.Add(this.groupBoxMove);
             this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(920, 624);
+            this.MinimumSize = new System.Drawing.Size(920, 624);
             this.Name = "FormDefault";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Arduino Supervisório";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormDefault_FormClosed);
             this.groupBoxMove.ResumeLayout(false);
             this.groupBoxMove.PerformLayout();
-            this.groupBoxConfigSerial.ResumeLayout(false);
-            this.groupBoxConfigSerial.PerformLayout();
+            this.groupBoxDistanciaDianteira.ResumeLayout(false);
+            this.groupBoxDistanciaDianteira.PerformLayout();
+            this.groupBoxVelocidade.ResumeLayout(false);
+            this.groupBoxVelocidade.PerformLayout();
+            this.groupBoxConfig.ResumeLayout(false);
+            this.groupBoxConfig.PerformLayout();
+            this.groupBoxDistanciaTraseira.ResumeLayout(false);
+            this.groupBoxDistanciaTraseira.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -280,9 +425,9 @@
         private System.Windows.Forms.Button buttonMoveFrente;
         private System.IO.Ports.SerialPort serialPort;
         private System.Windows.Forms.TextBox textBoxDisplayInfo;
-        private System.Windows.Forms.GroupBox groupBoxDistancias;
+        private System.Windows.Forms.GroupBox groupBoxDistanciaDianteira;
         private System.Windows.Forms.GroupBox groupBoxVelocidade;
-        private System.Windows.Forms.GroupBox groupBoxConfigSerial;
+        private System.Windows.Forms.GroupBox groupBoxConfig;
         private System.Windows.Forms.Button buttonUpdatePorts;
         private System.Windows.Forms.Button buttonConectar;
         private System.Windows.Forms.Label labelSelectBaudRate;
@@ -291,6 +436,17 @@
         private System.Windows.Forms.ComboBox comboBoxSelectPortaCom;
         private System.Windows.Forms.Button buttonDesconectar;
         private System.Windows.Forms.Button buttonClearDisplayInfo;
+        private System.Windows.Forms.Label labelDistanciaDianteira;
+        private System.Windows.Forms.GroupBox groupBoxDistanciaTraseira;
+        private System.Windows.Forms.Label labelDistanciaTraseira;
+        private System.Windows.Forms.Label labelVelocidadeMinimaValue;
+        private System.Windows.Forms.Label labelVelocidadeMaximaValue;
+        private System.Windows.Forms.Label labelVelocidadeMediaValue;
+        private System.Windows.Forms.Label labelVelocidadeAtual;
+        private System.Windows.Forms.Label labelVelocidadeMinimaText;
+        private System.Windows.Forms.Label labelVelocidadeMaximaText;
+        private System.Windows.Forms.Label labelVelocidadeMediaText;
+        private System.Windows.Forms.Button buttonBreakAll;
     }
 }
 

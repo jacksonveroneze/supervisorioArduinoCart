@@ -11,15 +11,11 @@ namespace ArduinoSupervisorio
     /// </summary>
     class PackageSend
     {
-        public const string PACKAGE_START = "#";
-        public const string PACKAGE_END = "#";
-        public const string PACKAGE_SEPARATOR = ";";
-
-        public int Active = 0;
-        public int RodaDianteiraEsquerda = 0;
-        public int RodaDianteiraDireita = 0;
-        public int RodaTraseiraEsquerda = 0;
-        public int RodaTraseiraDireita = 0;
+        public int Active = Util.BREAK_ROTATE;
+        public int RodaDianteiraEsquerda = Util.BREAK_ROTATE;
+        public int RodaDianteiraDireita = Util.BREAK_ROTATE;
+        public int RodaTraseiraEsquerda = Util.BREAK_ROTATE;
+        public int RodaTraseiraDireita = Util.BREAK_ROTATE;
 
 
         /// <summary>
@@ -37,13 +33,13 @@ namespace ArduinoSupervisorio
         public override string ToString()
         {
             StringBuilder str = new StringBuilder();
-            str.Append(PACKAGE_START);
-            str.Append(this.Active + PACKAGE_SEPARATOR);
-            str.Append(this.RodaDianteiraEsquerda + PACKAGE_SEPARATOR);
-            str.Append(this.RodaDianteiraDireita + PACKAGE_SEPARATOR);
-            str.Append(this.RodaTraseiraEsquerda + PACKAGE_SEPARATOR);
+            str.Append(Util.PACKAGE_START);
+            str.Append(this.Active + Util.PACKAGE_SEPARATOR);
+            str.Append(this.RodaDianteiraEsquerda + Util.PACKAGE_SEPARATOR);
+            str.Append(this.RodaDianteiraDireita + Util.PACKAGE_SEPARATOR);
+            str.Append(this.RodaTraseiraEsquerda + Util.PACKAGE_SEPARATOR);
             str.Append(this.RodaTraseiraDireita);
-            str.Append(PACKAGE_END);
+            str.Append(Util.PACKAGE_END);
 
             return str.ToString();
         }

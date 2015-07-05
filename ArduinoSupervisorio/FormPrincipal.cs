@@ -1,20 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO.Ports;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ArduinoSupervisorio
 {
+    /// <summary>
+    /// Classe responsável pelo programa principal.
+    /// 
+    /// Pacote: #1;1;1;1;1#
+    /// 
+    /// 1º - Ativa/desativa dispositivo.
+    /// 2º - Move/paralisa roda dianteira esquerda.
+    /// 3º - Move/paralisa roda dianteira direita.
+    /// 4º - Move/paralisa roda traseira esquerda.
+    /// 5º - Move/paralisa roda traseira direita.
+    /// 
+    /// </summary>
     public partial class FormDefault : Form
     {
-        string rxString;
+        private string rxString;
+        private bool isActive = false;
 
+        /// <summary>
+        /// Método construtor da classe.
+        /// </summary>
         public FormDefault()
         {
             InitializeComponent();
@@ -22,17 +32,10 @@ namespace ArduinoSupervisorio
             this.populateComboBoxBaudRate();
         }
 
-        private void checkBoxBloquearMovimentacao_CheckedChanged(object sender, EventArgs e)
-        {
-            this.buttonMoveFrente.Enabled = !this.buttonMoveFrente.Enabled;
-            this.buttonMoveTras.Enabled = !this.buttonMoveTras.Enabled;
-            this.buttonMoveEsquerda.Enabled = !this.buttonMoveEsquerda.Enabled;
-            this.buttonMoveDireita.Enabled = !this.buttonMoveDireita.Enabled;
-        }
-
         /// <summary>
         /// Método responsável por popular o combobox com as portas COMs disponíveis.
         /// </summary>
+        /// <returns>void</returns>
         private void atualizaPortas()
         {
             this.comboBoxSelectPortaCom.Items.Clear();
@@ -51,6 +54,7 @@ namespace ArduinoSupervisorio
         /// <summary>
         /// Método responsável por popular o combobox do BaudRate.
         /// </summary>
+        /// <returns>void</returns>
         private void populateComboBoxBaudRate()
         {
             this.comboBoxSelectBaudRate.Items.Add(300);
@@ -69,6 +73,11 @@ namespace ArduinoSupervisorio
             this.comboBoxSelectBaudRate.SelectedIndex = 5;
         }
 
+        /// <summary>
+        /// Método responsável por popular o campo com as inforções de IO.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns>void</returns>
         private void populateTextBoxDisplayInfo(string value)
         {
             DateTime date = DateTime.Now;
@@ -77,16 +86,38 @@ namespace ArduinoSupervisorio
             str.Append(date.ToString("T"));
             str.Append(" - ");
             str.Append(value);
-            str.Append("\r\n");
+            str.Append(Environment.NewLine);
 
             this.textBoxDisplayInfo.AppendText(str.ToString());
         }
 
+        /// <summary>
+        /// Método responsável por tratar os dados recebidos da porta serial.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <returns>void</returns>
         private void trataDadoRecebido(Object sender, EventArgs e)
         {
             this.populateTextBoxDisplayInfo(this.rxString);
         }
 
+        /// <summary>
+        /// Método responsável por enviar o pacote na porta serial para o dispositivo.
+        /// </summary>
+        /// <param name="command"></param>
+        /// <returns>void</returns>
+        private void sendCommandSerialPort(string command)
+        {
+            serialPort.WriteLine(command);
+        }
+
+        /// <summary>
+        /// Método responsável por fechar a porta serial, caso ainda esteja aberta ao fechar a tela.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <returns>void</returns>
         private void FormDefault_FormClosed(object sender, FormClosedEventArgs e)
         {
             if (serialPort.IsOpen == true)
@@ -95,11 +126,23 @@ namespace ArduinoSupervisorio
             }
         }
 
+        /// <summary>
+        /// Método responsável por atualizar a lista de portas disponíveis.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <returns>void</returns>
         private void buttonUpdatePorts_Click(object sender, EventArgs e)
         {
             this.atualizaPortas();
         }
 
+        /// <summary>
+        /// Método responsável por efetuar a conexão com o dispositivo.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <returns>void</returns>
         private void buttonConectar_Click(object sender, EventArgs e)
         {
             if (serialPort.IsOpen == true)
@@ -120,6 +163,13 @@ namespace ArduinoSupervisorio
                 this.groupBoxMove.Enabled = true;
 
                 this.populateTextBoxDisplayInfo("Conectado");
+
+                this.isActive = true;
+
+                PackageSend packageSend = new PackageSend();
+                packageSend.Active = Util.ACTIVE_SYSTEM;
+                this.sendCommandSerialPort(packageSend.ToString());
+                this.populateTextBoxDisplayInfo(packageSend.ToString());
             }
             catch (Exception)
             {
@@ -127,12 +177,12 @@ namespace ArduinoSupervisorio
             }
         }
 
-        private void comboBoxSelectPortaCom_TextChanged(object sender, EventArgs e)
-        {
-            this.comboBoxSelectBaudRate.Enabled = true;
-            this.buttonConectar.Enabled = true;
-        }
-
+        /// <summary>
+        /// Método responsável por fechar a conexão com o dispositivo.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <returns>void</returns>
         private void buttonDesconectar_Click(object sender, EventArgs e)
         {
             if (serialPort.IsOpen == false)
@@ -142,7 +192,13 @@ namespace ArduinoSupervisorio
 
             try
             {
-                serialPort.WriteLine("22");
+                this.isActive = false;
+
+                PackageSend packageSend = new PackageSend();
+                packageSend.Active = Util.DESACTIVE_SYSTEM;
+                this.sendCommandSerialPort(packageSend.ToString());
+                this.populateTextBoxDisplayInfo(packageSend.ToString());
+
                 this.serialPort.Close();
 
                 this.comboBoxSelectPortaCom.Enabled = true;
@@ -159,6 +215,24 @@ namespace ArduinoSupervisorio
             }
         }
 
+        /// <summary>
+        /// Método responsável por habilitar o campo BaudRate e o cotão conectar.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <returns>void</returns>
+        private void comboBoxSelectPortaCom_TextChanged(object sender, EventArgs e)
+        {
+            this.comboBoxSelectBaudRate.Enabled = true;
+            this.buttonConectar.Enabled = true;
+        }
+
+        /// <summary>
+        /// Método responsável por verificar se tem dados na porta serial.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <returns>void</returns>
         private void serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             if (serialPort.BytesToRead > 0)
@@ -168,24 +242,119 @@ namespace ArduinoSupervisorio
             }
         }
 
+        /// <summary>
+        /// Método responsável por desabiltar/habilitar os botões de movimentação.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <returns>void</returns>
+        private void checkBoxBloquearMovimentacao_CheckedChanged(object sender, EventArgs e)
+        {
+            this.buttonMoveFrente.Enabled = !this.buttonMoveFrente.Enabled;
+            this.buttonMoveTras.Enabled = !this.buttonMoveTras.Enabled;
+            this.buttonMoveEsquerda.Enabled = !this.buttonMoveEsquerda.Enabled;
+            this.buttonMoveDireita.Enabled = !this.buttonMoveDireita.Enabled;
+        }
+
+        /// <summary>
+        /// Método responsável por limpar o campo que exibe as informações de IO.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <returns>void</returns>
         private void buttonClearDisplayInfo_Click(object sender, EventArgs e)
         {
             this.textBoxDisplayInfo.Clear();
         }
 
+        /// <summary>
+        /// Método responsável por mover o dispositivo para frente.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <returns>void</returns>
         private void buttonMoveFrente_Click(object sender, EventArgs e)
         {
-            serialPort.WriteLine("1111");
+            PackageSend packageSend = new PackageSend();
+            packageSend.Active = Util.ACTIVE_SYSTEM;
+            packageSend.RodaDianteiraEsquerda = Util.ROTATE_FORWARD;
+            packageSend.RodaDianteiraDireita = Util.ROTATE_FORWARD;
+            packageSend.RodaTraseiraEsquerda = Util.ROTATE_FORWARD;
+            packageSend.RodaTraseiraDireita = Util.ROTATE_FORWARD;
+
+            this.sendCommandSerialPort(packageSend.ToString());
+            this.populateTextBoxDisplayInfo(packageSend.ToString());
         }
 
+        /// <summary>
+        /// Método responsável por mover o dispositivo para trás.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <returns>void</returns>
         private void buttonMoveTras_Click(object sender, EventArgs e)
         {
-            serialPort.WriteLine("22");
+            PackageSend packageSend = new PackageSend();
+            packageSend.Active = Util.ACTIVE_SYSTEM;
+            packageSend.RodaDianteiraEsquerda = Util.ROTATE_BACKWARD;
+            packageSend.RodaDianteiraDireita = Util.ROTATE_BACKWARD;
+            packageSend.RodaTraseiraEsquerda = Util.ROTATE_BACKWARD;
+            packageSend.RodaTraseiraDireita = Util.ROTATE_BACKWARD;
+
+            this.sendCommandSerialPort(packageSend.ToString());
+            this.populateTextBoxDisplayInfo(packageSend.ToString());
         }
 
+        /// <summary>
+        /// Método responsável por mover o dispositivo para esquerda.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <returns>void</returns>
         private void buttonMoveEsquerda_Click(object sender, EventArgs e)
         {
-            serialPort.WriteLine("1010");
+            PackageSend packageSend = new PackageSend();
+            packageSend.Active = Util.ACTIVE_SYSTEM;
+            packageSend.RodaDianteiraEsquerda = Util.ROTATE_BACKWARD;
+            packageSend.RodaDianteiraDireita = Util.ROTATE_FORWARD;
+            packageSend.RodaTraseiraEsquerda = Util.ROTATE_BACKWARD;
+            packageSend.RodaTraseiraDireita = Util.ROTATE_FORWARD;
+
+            this.sendCommandSerialPort(packageSend.ToString());
+            this.populateTextBoxDisplayInfo(packageSend.ToString());
+        }
+
+        /// <summary>
+        /// Método responsável por mover o dispositivo para direita.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <returns>void</returns>
+        private void buttonMoveDireita_Click(object sender, EventArgs e)
+        {
+            PackageSend packageSend = new PackageSend();
+            packageSend.Active = Util.ACTIVE_SYSTEM;
+            packageSend.RodaDianteiraEsquerda = Util.ROTATE_FORWARD;
+            packageSend.RodaDianteiraDireita = Util.ROTATE_BACKWARD;
+            packageSend.RodaTraseiraEsquerda = Util.ROTATE_FORWARD;
+            packageSend.RodaTraseiraDireita = Util.ROTATE_BACKWARD;
+
+            this.sendCommandSerialPort(packageSend.ToString());
+            this.populateTextBoxDisplayInfo(packageSend.ToString());
+        }
+
+        /// <summary>
+        /// Método responsável por freiar o dispositivo.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// <returns>void</returns>
+        private void buttonBreakAll_Click(object sender, EventArgs e)
+        {
+            PackageSend packageSend = new PackageSend();
+            packageSend.Active = Util.ACTIVE_SYSTEM;
+            this.sendCommandSerialPort(packageSend.ToString());
+            this.populateTextBoxDisplayInfo(packageSend.ToString());
         }
     }
 }
