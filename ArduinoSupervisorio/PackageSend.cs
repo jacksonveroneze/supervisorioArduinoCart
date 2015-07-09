@@ -11,20 +11,11 @@ namespace ArduinoSupervisorio
     /// </summary>
     class PackageSend
     {
-        public int Active = Util.BREAK_ROTATE;
+        public int Active = Util.DESACTIVE_SYSTEM;
         public int RodaDianteiraEsquerda = Util.BREAK_ROTATE;
         public int RodaDianteiraDireita = Util.BREAK_ROTATE;
         public int RodaTraseiraEsquerda = Util.BREAK_ROTATE;
         public int RodaTraseiraDireita = Util.BREAK_ROTATE;
-
-
-        /// <summary>
-        /// Método construtor da classe.
-        /// </summary>
-        public PackageSend()
-        {
-
-        }
 
         /// <summary>
         /// Método responsável por retornar o objeto como string.
