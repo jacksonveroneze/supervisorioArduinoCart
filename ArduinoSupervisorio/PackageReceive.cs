@@ -21,6 +21,11 @@ namespace ArduinoSupervisorio
         /// <returns>string</returns>
         public PackageReceive ProcessPackage(string data)
         {
+            if("".equals(data))
+            {
+                return null;
+            }
+
             string packageReceive = data.Remove(data.Length - 1);
 
             if(!packageReceive.StartsWith(Util.PACKAGE_START))
