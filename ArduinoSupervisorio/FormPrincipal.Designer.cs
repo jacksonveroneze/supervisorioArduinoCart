@@ -30,8 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBoxMove = new System.Windows.Forms.GroupBox();
+            this.buttonDiminuirVelocidade = new System.Windows.Forms.Button();
+            this.buttonAumentarVelocidade = new System.Windows.Forms.Button();
             this.buttonBreakAll = new System.Windows.Forms.Button();
-            this.checkBoxBloquearMovimentacao = new System.Windows.Forms.CheckBox();
             this.buttonMoveEsquerda = new System.Windows.Forms.Button();
             this.buttonMoveDireita = new System.Windows.Forms.Button();
             this.buttonMoveTras = new System.Windows.Forms.Button();
@@ -68,8 +69,9 @@
             // 
             // groupBoxMove
             // 
+            this.groupBoxMove.Controls.Add(this.buttonDiminuirVelocidade);
+            this.groupBoxMove.Controls.Add(this.buttonAumentarVelocidade);
             this.groupBoxMove.Controls.Add(this.buttonBreakAll);
-            this.groupBoxMove.Controls.Add(this.checkBoxBloquearMovimentacao);
             this.groupBoxMove.Controls.Add(this.buttonMoveEsquerda);
             this.groupBoxMove.Controls.Add(this.buttonMoveDireita);
             this.groupBoxMove.Controls.Add(this.buttonMoveTras);
@@ -77,15 +79,33 @@
             this.groupBoxMove.Enabled = false;
             this.groupBoxMove.Location = new System.Drawing.Point(12, 128);
             this.groupBoxMove.Name = "groupBoxMove";
-            this.groupBoxMove.Size = new System.Drawing.Size(376, 301);
+            this.groupBoxMove.Size = new System.Drawing.Size(620, 301);
             this.groupBoxMove.TabIndex = 0;
             this.groupBoxMove.TabStop = false;
             this.groupBoxMove.Text = "Move";
             // 
+            // buttonDiminuirVelocidade
+            // 
+            this.buttonDiminuirVelocidade.Location = new System.Drawing.Point(478, 29);
+            this.buttonDiminuirVelocidade.Name = "buttonDiminuirVelocidade";
+            this.buttonDiminuirVelocidade.Size = new System.Drawing.Size(75, 75);
+            this.buttonDiminuirVelocidade.TabIndex = 7;
+            this.buttonDiminuirVelocidade.Text = "-";
+            this.buttonDiminuirVelocidade.UseVisualStyleBackColor = true;
+            // 
+            // buttonAumentarVelocidade
+            // 
+            this.buttonAumentarVelocidade.Location = new System.Drawing.Point(388, 29);
+            this.buttonAumentarVelocidade.Name = "buttonAumentarVelocidade";
+            this.buttonAumentarVelocidade.Size = new System.Drawing.Size(75, 75);
+            this.buttonAumentarVelocidade.TabIndex = 6;
+            this.buttonAumentarVelocidade.Text = "+";
+            this.buttonAumentarVelocidade.UseVisualStyleBackColor = true;
+            // 
             // buttonBreakAll
             // 
             this.buttonBreakAll.Font = new System.Drawing.Font("Arial Narrow", 8.25F);
-            this.buttonBreakAll.Location = new System.Drawing.Point(165, 117);
+            this.buttonBreakAll.Location = new System.Drawing.Point(155, 133);
             this.buttonBreakAll.Name = "buttonBreakAll";
             this.buttonBreakAll.Size = new System.Drawing.Size(40, 40);
             this.buttonBreakAll.TabIndex = 5;
@@ -93,23 +113,12 @@
             this.buttonBreakAll.UseVisualStyleBackColor = true;
             this.buttonBreakAll.Click += new System.EventHandler(this.buttonBreakAll_Click);
             // 
-            // checkBoxBloquearMovimentacao
-            // 
-            this.checkBoxBloquearMovimentacao.AutoSize = true;
-            this.checkBoxBloquearMovimentacao.Location = new System.Drawing.Point(6, 278);
-            this.checkBoxBloquearMovimentacao.Name = "checkBoxBloquearMovimentacao";
-            this.checkBoxBloquearMovimentacao.Size = new System.Drawing.Size(141, 17);
-            this.checkBoxBloquearMovimentacao.TabIndex = 4;
-            this.checkBoxBloquearMovimentacao.Text = "Bloquear Movimentação";
-            this.checkBoxBloquearMovimentacao.UseVisualStyleBackColor = true;
-            this.checkBoxBloquearMovimentacao.CheckedChanged += new System.EventHandler(this.checkBoxBloquearMovimentacao_CheckedChanged);
-            // 
             // buttonMoveEsquerda
             // 
             this.buttonMoveEsquerda.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonMoveEsquerda.Location = new System.Drawing.Point(58, 101);
+            this.buttonMoveEsquerda.Location = new System.Drawing.Point(48, 117);
             this.buttonMoveEsquerda.Name = "buttonMoveEsquerda";
-            this.buttonMoveEsquerda.Size = new System.Drawing.Size(75, 72);
+            this.buttonMoveEsquerda.Size = new System.Drawing.Size(75, 75);
             this.buttonMoveEsquerda.TabIndex = 3;
             this.buttonMoveEsquerda.Text = "◄";
             this.buttonMoveEsquerda.UseVisualStyleBackColor = true;
@@ -118,9 +127,9 @@
             // buttonMoveDireita
             // 
             this.buttonMoveDireita.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonMoveDireita.Location = new System.Drawing.Point(239, 101);
+            this.buttonMoveDireita.Location = new System.Drawing.Point(229, 117);
             this.buttonMoveDireita.Name = "buttonMoveDireita";
-            this.buttonMoveDireita.Size = new System.Drawing.Size(75, 72);
+            this.buttonMoveDireita.Size = new System.Drawing.Size(75, 75);
             this.buttonMoveDireita.TabIndex = 2;
             this.buttonMoveDireita.Text = "►";
             this.buttonMoveDireita.UseVisualStyleBackColor = true;
@@ -129,9 +138,9 @@
             // buttonMoveTras
             // 
             this.buttonMoveTras.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonMoveTras.Location = new System.Drawing.Point(149, 171);
+            this.buttonMoveTras.Location = new System.Drawing.Point(139, 187);
             this.buttonMoveTras.Name = "buttonMoveTras";
-            this.buttonMoveTras.Size = new System.Drawing.Size(75, 72);
+            this.buttonMoveTras.Size = new System.Drawing.Size(75, 75);
             this.buttonMoveTras.TabIndex = 1;
             this.buttonMoveTras.Text = "▼";
             this.buttonMoveTras.UseVisualStyleBackColor = true;
@@ -140,9 +149,9 @@
             // buttonMoveFrente
             // 
             this.buttonMoveFrente.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonMoveFrente.Location = new System.Drawing.Point(149, 29);
+            this.buttonMoveFrente.Location = new System.Drawing.Point(139, 45);
             this.buttonMoveFrente.Name = "buttonMoveFrente";
-            this.buttonMoveFrente.Size = new System.Drawing.Size(75, 72);
+            this.buttonMoveFrente.Size = new System.Drawing.Size(75, 75);
             this.buttonMoveFrente.TabIndex = 0;
             this.buttonMoveFrente.Text = "▲";
             this.buttonMoveFrente.UseVisualStyleBackColor = true;
@@ -154,6 +163,7 @@
             // 
             // textBoxDisplayInfo
             // 
+            this.textBoxDisplayInfo.Enabled = false;
             this.textBoxDisplayInfo.Location = new System.Drawing.Point(12, 445);
             this.textBoxDisplayInfo.Multiline = true;
             this.textBoxDisplayInfo.Name = "textBoxDisplayInfo";
@@ -164,9 +174,10 @@
             // groupBoxDistanciaDianteira
             // 
             this.groupBoxDistanciaDianteira.Controls.Add(this.labelDistanciaDianteira);
-            this.groupBoxDistanciaDianteira.Location = new System.Drawing.Point(403, 128);
+            this.groupBoxDistanciaDianteira.Enabled = false;
+            this.groupBoxDistanciaDianteira.Location = new System.Drawing.Point(647, 128);
             this.groupBoxDistanciaDianteira.Name = "groupBoxDistanciaDianteira";
-            this.groupBoxDistanciaDianteira.Size = new System.Drawing.Size(239, 145);
+            this.groupBoxDistanciaDianteira.Size = new System.Drawing.Size(239, 76);
             this.groupBoxDistanciaDianteira.TabIndex = 2;
             this.groupBoxDistanciaDianteira.TabStop = false;
             this.groupBoxDistanciaDianteira.Text = "Distância dianteira";
@@ -174,10 +185,10 @@
             // labelDistanciaDianteira
             // 
             this.labelDistanciaDianteira.AutoSize = true;
-            this.labelDistanciaDianteira.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDistanciaDianteira.Location = new System.Drawing.Point(48, 65);
+            this.labelDistanciaDianteira.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.labelDistanciaDianteira.Location = new System.Drawing.Point(11, 29);
             this.labelDistanciaDianteira.Name = "labelDistanciaDianteira";
-            this.labelDistanciaDianteira.Size = new System.Drawing.Size(32, 36);
+            this.labelDistanciaDianteira.Size = new System.Drawing.Size(20, 24);
             this.labelDistanciaDianteira.TabIndex = 0;
             this.labelDistanciaDianteira.Text = "_";
             // 
@@ -190,9 +201,10 @@
             this.groupBoxVelocidade.Controls.Add(this.labelVelocidadeMinimaText);
             this.groupBoxVelocidade.Controls.Add(this.labelVelocidadeMaximaText);
             this.groupBoxVelocidade.Controls.Add(this.labelVelocidadeMediaText);
-            this.groupBoxVelocidade.Location = new System.Drawing.Point(659, 128);
+            this.groupBoxVelocidade.Enabled = false;
+            this.groupBoxVelocidade.Location = new System.Drawing.Point(647, 299);
             this.groupBoxVelocidade.Name = "groupBoxVelocidade";
-            this.groupBoxVelocidade.Size = new System.Drawing.Size(227, 301);
+            this.groupBoxVelocidade.Size = new System.Drawing.Size(239, 130);
             this.groupBoxVelocidade.TabIndex = 3;
             this.groupBoxVelocidade.TabStop = false;
             this.groupBoxVelocidade.Text = "Velocidade";
@@ -201,7 +213,7 @@
             // 
             this.labelVelocidadeMinimaValue.AutoSize = true;
             this.labelVelocidadeMinimaValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.labelVelocidadeMinimaValue.Location = new System.Drawing.Point(60, 268);
+            this.labelVelocidadeMinimaValue.Location = new System.Drawing.Point(51, 113);
             this.labelVelocidadeMinimaValue.Name = "labelVelocidadeMinimaValue";
             this.labelVelocidadeMinimaValue.Size = new System.Drawing.Size(13, 13);
             this.labelVelocidadeMinimaValue.TabIndex = 6;
@@ -211,7 +223,7 @@
             // 
             this.labelVelocidadeMaximaValue.AutoSize = true;
             this.labelVelocidadeMaximaValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.labelVelocidadeMaximaValue.Location = new System.Drawing.Point(60, 236);
+            this.labelVelocidadeMaximaValue.Location = new System.Drawing.Point(48, 89);
             this.labelVelocidadeMaximaValue.Name = "labelVelocidadeMaximaValue";
             this.labelVelocidadeMaximaValue.Size = new System.Drawing.Size(13, 13);
             this.labelVelocidadeMaximaValue.TabIndex = 5;
@@ -221,7 +233,7 @@
             // 
             this.labelVelocidadeMediaValue.AutoSize = true;
             this.labelVelocidadeMediaValue.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.labelVelocidadeMediaValue.Location = new System.Drawing.Point(60, 201);
+            this.labelVelocidadeMediaValue.Location = new System.Drawing.Point(51, 65);
             this.labelVelocidadeMediaValue.Name = "labelVelocidadeMediaValue";
             this.labelVelocidadeMediaValue.Size = new System.Drawing.Size(13, 13);
             this.labelVelocidadeMediaValue.TabIndex = 4;
@@ -230,10 +242,10 @@
             // labelVelocidadeAtual
             // 
             this.labelVelocidadeAtual.AutoSize = true;
-            this.labelVelocidadeAtual.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelVelocidadeAtual.Location = new System.Drawing.Point(35, 52);
+            this.labelVelocidadeAtual.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.labelVelocidadeAtual.Location = new System.Drawing.Point(14, 29);
             this.labelVelocidadeAtual.Name = "labelVelocidadeAtual";
-            this.labelVelocidadeAtual.Size = new System.Drawing.Size(32, 36);
+            this.labelVelocidadeAtual.Size = new System.Drawing.Size(20, 24);
             this.labelVelocidadeAtual.TabIndex = 1;
             this.labelVelocidadeAtual.Text = "_";
             // 
@@ -241,7 +253,7 @@
             // 
             this.labelVelocidadeMinimaText.AutoSize = true;
             this.labelVelocidadeMinimaText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.labelVelocidadeMinimaText.Location = new System.Drawing.Point(15, 268);
+            this.labelVelocidadeMinimaText.Location = new System.Drawing.Point(6, 113);
             this.labelVelocidadeMinimaText.Name = "labelVelocidadeMinimaText";
             this.labelVelocidadeMinimaText.Size = new System.Drawing.Size(45, 13);
             this.labelVelocidadeMinimaText.TabIndex = 3;
@@ -251,7 +263,7 @@
             // 
             this.labelVelocidadeMaximaText.AutoSize = true;
             this.labelVelocidadeMaximaText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.labelVelocidadeMaximaText.Location = new System.Drawing.Point(15, 236);
+            this.labelVelocidadeMaximaText.Location = new System.Drawing.Point(6, 89);
             this.labelVelocidadeMaximaText.Name = "labelVelocidadeMaximaText";
             this.labelVelocidadeMaximaText.Size = new System.Drawing.Size(46, 13);
             this.labelVelocidadeMaximaText.TabIndex = 2;
@@ -261,7 +273,7 @@
             // 
             this.labelVelocidadeMediaText.AutoSize = true;
             this.labelVelocidadeMediaText.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
-            this.labelVelocidadeMediaText.Location = new System.Drawing.Point(15, 201);
+            this.labelVelocidadeMediaText.Location = new System.Drawing.Point(6, 65);
             this.labelVelocidadeMediaText.Name = "labelVelocidadeMediaText";
             this.labelVelocidadeMediaText.Size = new System.Drawing.Size(39, 13);
             this.labelVelocidadeMediaText.TabIndex = 1;
@@ -365,9 +377,10 @@
             // groupBoxDistanciaTraseira
             // 
             this.groupBoxDistanciaTraseira.Controls.Add(this.labelDistanciaTraseira);
-            this.groupBoxDistanciaTraseira.Location = new System.Drawing.Point(403, 284);
+            this.groupBoxDistanciaTraseira.Enabled = false;
+            this.groupBoxDistanciaTraseira.Location = new System.Drawing.Point(647, 210);
             this.groupBoxDistanciaTraseira.Name = "groupBoxDistanciaTraseira";
-            this.groupBoxDistanciaTraseira.Size = new System.Drawing.Size(239, 145);
+            this.groupBoxDistanciaTraseira.Size = new System.Drawing.Size(239, 80);
             this.groupBoxDistanciaTraseira.TabIndex = 3;
             this.groupBoxDistanciaTraseira.TabStop = false;
             this.groupBoxDistanciaTraseira.Text = "Distância traseira";
@@ -375,10 +388,10 @@
             // labelDistanciaTraseira
             // 
             this.labelDistanciaTraseira.AutoSize = true;
-            this.labelDistanciaTraseira.Font = new System.Drawing.Font("Microsoft Sans Serif", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelDistanciaTraseira.Location = new System.Drawing.Point(48, 64);
+            this.labelDistanciaTraseira.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F);
+            this.labelDistanciaTraseira.Location = new System.Drawing.Point(11, 25);
             this.labelDistanciaTraseira.Name = "labelDistanciaTraseira";
-            this.labelDistanciaTraseira.Size = new System.Drawing.Size(32, 36);
+            this.labelDistanciaTraseira.Size = new System.Drawing.Size(20, 24);
             this.labelDistanciaTraseira.TabIndex = 0;
             this.labelDistanciaTraseira.Text = "_";
             // 
@@ -386,7 +399,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(904, 585);
+            this.ClientSize = new System.Drawing.Size(934, 591);
             this.Controls.Add(this.groupBoxDistanciaTraseira);
             this.Controls.Add(this.groupBoxConfig);
             this.Controls.Add(this.groupBoxVelocidade);
@@ -394,14 +407,13 @@
             this.Controls.Add(this.textBoxDisplayInfo);
             this.Controls.Add(this.groupBoxMove);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(920, 624);
-            this.MinimumSize = new System.Drawing.Size(920, 624);
+            this.MaximumSize = new System.Drawing.Size(950, 630);
+            this.MinimumSize = new System.Drawing.Size(950, 630);
             this.Name = "FormDefault";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Arduino Supervisório";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormDefault_FormClosed);
             this.groupBoxMove.ResumeLayout(false);
-            this.groupBoxMove.PerformLayout();
             this.groupBoxDistanciaDianteira.ResumeLayout(false);
             this.groupBoxDistanciaDianteira.PerformLayout();
             this.groupBoxVelocidade.ResumeLayout(false);
@@ -418,7 +430,6 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBoxMove;
-        private System.Windows.Forms.CheckBox checkBoxBloquearMovimentacao;
         private System.Windows.Forms.Button buttonMoveEsquerda;
         private System.Windows.Forms.Button buttonMoveDireita;
         private System.Windows.Forms.Button buttonMoveTras;
@@ -447,6 +458,8 @@
         private System.Windows.Forms.Label labelVelocidadeMaximaText;
         private System.Windows.Forms.Label labelVelocidadeMediaText;
         private System.Windows.Forms.Button buttonBreakAll;
+        private System.Windows.Forms.Button buttonDiminuirVelocidade;
+        private System.Windows.Forms.Button buttonAumentarVelocidade;
     }
 }
 

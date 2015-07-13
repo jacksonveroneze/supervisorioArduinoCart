@@ -8,14 +8,14 @@ namespace ArduinoSupervisorio
 {
     class Util
     {
+        public const int SYSTEM_DESACTIVE = 0;
+        public const int SYSTEM_ACTIVE = 1;
+
         public const string PACKAGE_START = "#";
         public const string PACKAGE_END = "#";
         public const string PACKAGE_SEPARATOR = ";";
 
-        public const int ACTIVE_SYSTEM = 1;
-        public const int DESACTIVE_SYSTEM = 0;
-
-        public const int BREAK_ROTATE = 0;
+        public const int ROTATE_BREAK = 0;
         public const int ROTATE_FORWARD = 1;
         public const int ROTATE_BACKWARD = 2;
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO.Ports;
 using System.Text;
 using System.Windows.Forms;
@@ -19,8 +20,8 @@ namespace ArduinoSupervisorio
     /// </summary>
     public partial class FormDefault : Form
     {
-        private string rxString;
-        private bool isActive = false;
+        private string RxString;
+        private IList<double> VelocidadeMedia;
 
         /// <summary>
         /// Método construtor da classe.
@@ -99,7 +100,22 @@ namespace ArduinoSupervisorio
         /// <returns>void</returns>
         private void trataDadoRecebido(Object sender, EventArgs e)
         {
-            this.populateTextBoxDisplayInfo(this.rxString);
+            if (!"".Equals(this.RxString))
+            {
+                PackageReceive packareReceive = new PackageReceive();
+                PackageReceive result = packareReceive.ProcessPackage(this.RxString);
+
+                if (result != null)
+                {
+                    this.labelDistanciaDianteira.Text = result.DistanciaDianteira.ToString();
+                    this.labelDistanciaTraseira.Text = result.DistanciaTraseira.ToString();
+                    this.labelVelocidadeAtual.Text = result.Velocidade.ToString();
+
+                    //this.VelocidadeMedia.Add(result.Velocidade);
+
+                    this.populateTextBoxDisplayInfo(this.RxString);
+                }
+            }
         }
 
         /// <summary>
@@ -161,13 +177,15 @@ namespace ArduinoSupervisorio
                 this.buttonConectar.Enabled = false;
                 this.buttonDesconectar.Enabled = true;
                 this.groupBoxMove.Enabled = true;
+                this.groupBoxDistanciaDianteira.Enabled = true;
+                this.groupBoxDistanciaTraseira.Enabled = true;
+                this.groupBoxVelocidade.Enabled = true;
+                this.textBoxDisplayInfo.Enabled = true;
 
                 this.populateTextBoxDisplayInfo("Conectado");
 
-                this.isActive = true;
-
                 PackageSend packageSend = new PackageSend();
-                packageSend.Active = Util.ACTIVE_SYSTEM;
+                packageSend.Active = Util.SYSTEM_ACTIVE;
                 this.sendCommandSerialPort(packageSend.ToString());
                 this.populateTextBoxDisplayInfo(packageSend.ToString());
             }
@@ -192,10 +210,8 @@ namespace ArduinoSupervisorio
 
             try
             {
-                this.isActive = false;
-
                 PackageSend packageSend = new PackageSend();
-                packageSend.Active = Util.DESACTIVE_SYSTEM;
+                packageSend.Active = Util.SYSTEM_DESACTIVE;
                 this.sendCommandSerialPort(packageSend.ToString());
                 this.populateTextBoxDisplayInfo(packageSend.ToString());
 
@@ -206,6 +222,10 @@ namespace ArduinoSupervisorio
                 this.buttonConectar.Enabled = true;
                 this.buttonDesconectar.Enabled = false;
                 this.groupBoxMove.Enabled = false;
+                this.groupBoxDistanciaDianteira.Enabled = false;
+                this.groupBoxDistanciaTraseira.Enabled = false;
+                this.groupBoxVelocidade.Enabled = false;
+                this.textBoxDisplayInfo.Enabled = false;
 
                 this.populateTextBoxDisplayInfo("Desconectado");
             }
@@ -237,7 +257,7 @@ namespace ArduinoSupervisorio
         {
             if (serialPort.BytesToRead > 0)
             {
-                this.rxString = serialPort.ReadLine();
+                this.RxString = serialPort.ReadLine();
                 this.Invoke(new EventHandler(trataDadoRecebido));
             }
         }
@@ -254,6 +274,7 @@ namespace ArduinoSupervisorio
             this.buttonMoveTras.Enabled = !this.buttonMoveTras.Enabled;
             this.buttonMoveEsquerda.Enabled = !this.buttonMoveEsquerda.Enabled;
             this.buttonMoveDireita.Enabled = !this.buttonMoveDireita.Enabled;
+            this.buttonBreakAll.Enabled = !this.buttonBreakAll.Enabled;
         }
 
         /// <summary>
@@ -276,7 +297,7 @@ namespace ArduinoSupervisorio
         private void buttonMoveFrente_Click(object sender, EventArgs e)
         {
             PackageSend packageSend = new PackageSend();
-            packageSend.Active = Util.ACTIVE_SYSTEM;
+            packageSend.Active = Util.SYSTEM_ACTIVE;
             packageSend.RodaDianteiraEsquerda = Util.ROTATE_FORWARD;
             packageSend.RodaDianteiraDireita = Util.ROTATE_FORWARD;
             packageSend.RodaTraseiraEsquerda = Util.ROTATE_FORWARD;
@@ -295,7 +316,7 @@ namespace ArduinoSupervisorio
         private void buttonMoveTras_Click(object sender, EventArgs e)
         {
             PackageSend packageSend = new PackageSend();
-            packageSend.Active = Util.ACTIVE_SYSTEM;
+            packageSend.Active = Util.SYSTEM_ACTIVE;
             packageSend.RodaDianteiraEsquerda = Util.ROTATE_BACKWARD;
             packageSend.RodaDianteiraDireita = Util.ROTATE_BACKWARD;
             packageSend.RodaTraseiraEsquerda = Util.ROTATE_BACKWARD;
@@ -314,7 +335,7 @@ namespace ArduinoSupervisorio
         private void buttonMoveEsquerda_Click(object sender, EventArgs e)
         {
             PackageSend packageSend = new PackageSend();
-            packageSend.Active = Util.ACTIVE_SYSTEM;
+            packageSend.Active = Util.SYSTEM_ACTIVE;
             packageSend.RodaDianteiraEsquerda = Util.ROTATE_BACKWARD;
             packageSend.RodaDianteiraDireita = Util.ROTATE_FORWARD;
             packageSend.RodaTraseiraEsquerda = Util.ROTATE_BACKWARD;
@@ -333,7 +354,7 @@ namespace ArduinoSupervisorio
         private void buttonMoveDireita_Click(object sender, EventArgs e)
         {
             PackageSend packageSend = new PackageSend();
-            packageSend.Active = Util.ACTIVE_SYSTEM;
+            packageSend.Active = Util.SYSTEM_ACTIVE;
             packageSend.RodaDianteiraEsquerda = Util.ROTATE_FORWARD;
             packageSend.RodaDianteiraDireita = Util.ROTATE_BACKWARD;
             packageSend.RodaTraseiraEsquerda = Util.ROTATE_FORWARD;
@@ -352,7 +373,7 @@ namespace ArduinoSupervisorio
         private void buttonBreakAll_Click(object sender, EventArgs e)
         {
             PackageSend packageSend = new PackageSend();
-            packageSend.Active = Util.ACTIVE_SYSTEM;
+            packageSend.Active = Util.SYSTEM_ACTIVE;
             this.sendCommandSerialPort(packageSend.ToString());
             this.populateTextBoxDisplayInfo(packageSend.ToString());
         }
