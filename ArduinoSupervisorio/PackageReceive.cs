@@ -28,9 +28,9 @@ namespace ArduinoSupervisorio
 
             packageReceive = packageReceive.Remove(0, 2);
             packageReceive = packageReceive.Remove(data.Length - 1);
-            packageReceive = packageReceive1.Remove(packageReceive1.Length - 1);
+            packageReceive = packageReceive.Remove(packageReceive1.Length - 1);
 
-            string[] packageReceiveSplit = packageReceive2.Split(char.Parse(Util.PACKAGE_SEPARATOR));
+            string[] packageReceiveSplit = packageReceive.Split(char.Parse(Util.PACKAGE_SEPARATOR));
 
             this.DistanciaDianteira = double.Parse(packageReceiveSplit[0]);
             this.DistanciaTraseira = double.Parse(packageReceiveSplit[1]);
