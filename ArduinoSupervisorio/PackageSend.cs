@@ -8,6 +8,15 @@ namespace ArduinoSupervisorio
 {
     /// <summary>
     /// Classe responsável por montar o pacote a ser enviado para o dispositivo.
+    ///
+    /// Pacote: #1;1;1;1;1#
+    /// 
+    /// 1º - Ativa/desativa dispositivo.
+    /// 2º - Move/paralisa roda dianteira esquerda.
+    /// 3º - Move/paralisa roda dianteira direita.
+    /// 4º - Move/paralisa roda traseira esquerda.
+    /// 5º - Move/paralisa roda traseira direita.
+    ///
     /// </summary>
     class PackageSend
     {
