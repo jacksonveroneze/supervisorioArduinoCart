@@ -19,32 +19,16 @@ namespace ArduinoSupervisorio
         /// Método responsável por montar o objeto de acordo com os valores recebidos.
         /// </summary>
         /// <returns>string</returns>
-        public PackageReceive ProcessPackage(string data)
+        public PackageReceive ProcessPackage(string packageReceive)
         {
-            if("".equals(data))
+            if(this.ValidPackageReceive(data) == false)
             {
                 return null;
             }
 
-            string packageReceive = data.Remove(data.Length - 1);
-
-            if(!packageReceive.StartsWith(Util.PACKAGE_START))
-            {
-                return null;
-            }
-
-            if(!packageReceive.EndsWith(Util.PACKAGE_END))
-            {
-                return null;
-            }
-
-            if(!packageReceive.Contains(Util.PACKAGE_SEPARATOR))
-            {
-                return null;
-            }
-
-            string packageReceive1 = packageReceive.Remove(0, 2);
-            string packageReceive2 = packageReceive1.Remove(packageReceive1.Length - 1);
+            packageReceive = packageReceive.Remove(0, 2);
+            packageReceive = packageReceive.Remove(data.Length - 1);
+            packageReceive = packageReceive1.Remove(packageReceive1.Length - 1);
 
             string[] packageReceiveSplit = packageReceive2.Split(char.Parse(Util.PACKAGE_SEPARATOR));
 
@@ -52,6 +36,37 @@ namespace ArduinoSupervisorio
             this.DistanciaTraseira = double.Parse(packageReceiveSplit[1]);
 
             return this;
+        }
+
+        /// <summary>
+        /// Método responsável por validar os valores recebidos.
+        /// </summary>
+        /// <returns>bool</returns>
+        public bool ValidPackageReceive(string data)
+        {
+            if("".equals(data))
+            {
+                return false;
+            }
+
+            string packageReceive = data.Remove(data.Length - 1);
+
+            if(!packageReceive.StartsWith(Util.PACKAGE_START))
+            {
+                return false;
+            }
+
+            if(!packageReceive.EndsWith(Util.PACKAGE_END))
+            {
+                return false;
+            }
+
+            if(!packageReceive.Contains(Util.PACKAGE_SEPARATOR))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }
