@@ -8,15 +8,6 @@ namespace ArduinoSupervisorio
 {
     /// <summary>
     /// Classe responsável pelo programa principal.
-    /// 
-    /// Pacote: #1;1;1;1;1#
-    /// 
-    /// 1º - Ativa/desativa dispositivo.
-    /// 2º - Move/paralisa roda dianteira esquerda.
-    /// 3º - Move/paralisa roda dianteira direita.
-    /// 4º - Move/paralisa roda traseira esquerda.
-    /// 5º - Move/paralisa roda traseira direita.
-    /// 
     /// </summary>
     public partial class FormDefault : Form
     {
